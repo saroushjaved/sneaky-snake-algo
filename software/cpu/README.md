@@ -1,37 +1,42 @@
 # CPU implementation
 
-`src/SneakySnake.cpp` and `include/SneakySnake.h` preserve the imported final kernel byte for byte. The same kernel occurred in v2, v3, and the final project; the maintained build uses one copy.
+The CPU implementation uses C++ for Sneaky Snake filtering and OpenMP for parallel processing of independent query/reference pairs.
 
-`src/main.cpp` is a new portable C++17/OpenMP runner. The original final runner and earlier experiments remain in `archive/`.
+## Source organization
 
-## Build and verify
+| Path | Role |
+| --- | --- |
+| `src/main.cpp` | Command-line arguments, sequence loading, OpenMP loop, counters, and timing |
+| `src/SneakySnake.cpp` | Checkpoint traversal and horizontal routing-track functions |
+| `include/SneakySnake.h` | Filter function declaration |
+| `archive/runners/` | CPU and cloud runner variants |
+| `archive/experiments/` | Chip-maze, threading, and sequence-conversion experiments |
+| `archive/recovered/` | Additional CPU and cloud implementation variants |
 
-Run commands from the repository root. Requires a C++17 compiler with OpenMP; Python 3 is needed only for the integration checks. CMake 3.16 or newer can configure the provided build definition:
+## Build
+
+Run commands from the repository root. Requires C++17 and OpenMP. With CMake 3.16 or newer:
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 ```
 
-The direct GCC/MinGW route was used for the recorded local validation. On a POSIX shell:
+Direct GCC build on a POSIX shell:
 
 ```sh
 mkdir -p build
 g++ -std=c++17 -O2 -fopenmp -Isoftware/cpu/include software/cpu/src/main.cpp software/cpu/src/SneakySnake.cpp -o build/sneaky_snake
-./build/sneaky_snake data/samples/smoke.txt 0 4
-python tests/check_runner.py build/sneaky_snake
 ```
 
-With MinGW in PowerShell:
+Direct MinGW build in PowerShell:
 
 ```powershell
 New-Item -ItemType Directory -Force build | Out-Null
 g++ -std=c++17 -O2 -fopenmp -Isoftware/cpu/include software/cpu/src/main.cpp software/cpu/src/SneakySnake.cpp -o build/sneaky_snake.exe
-./build/sneaky_snake.exe data/samples/smoke.txt 0 4
-python tests/check_runner.py build/sneaky_snake.exe
 ```
 
-Keep the compiler's runtime DLL directory on `PATH`. Visual Studio multi-configuration builds normally place the executable at `build/Release/sneaky_snake.exe`; use that path for both execution and checks. CMake's configure/build route has not been exercised in the recorded audit environment. Generated `build/` files were removed during cleanup and are recreated by these commands.
+For Windows builds, keep the compiler's runtime DLL directory on `PATH`. Visual Studio multi-configuration builds place the executable under `build/Release/` when building with `--config Release`.
 
 ## Usage
 
@@ -39,9 +44,23 @@ Keep the compiler's runtime DLL directory on `PATH`. Visual Studio multi-configu
 sneaky_snake <dataset> <edit-threshold> [threads]
 ```
 
-The edit threshold must be a nonnegative integer. Threads must be a positive integer and default to `1`. OpenMP may use fewer threads depending on runtime configuration.
+| Argument | Meaning |
+| --- | --- |
+| `dataset` | Path to a sequence-pair text file |
+| `edit-threshold` | Nonnegative integer controlling filtering |
+| `threads` | Positive OpenMP thread count; defaults to 1 |
 
-Each input row must contain exactly two whitespace-separated uppercase query/reference sequences of equal, nonzero length. Allowed characters are `A`, `C`, `G`, `T`, and `N`; `N` is compared literally, not as a wildcard. Different rows may have different lengths. Missing files, empty inputs, blank lines, and malformed rows produce a nonzero exit status.
+Example:
+
+```sh
+./build/sneaky_snake data/samples/smoke.txt 0 4
+```
+
+On Windows, use `build/sneaky_snake.exe` for MinGW or `build/Release/sneaky_snake.exe` for Visual Studio.
+
+## Input and output
+
+Each row contains exactly two whitespace-separated uppercase sequences of equal, nonzero length:
 
 ```text
 ACGT ACGT
@@ -49,13 +68,9 @@ AAAA TTTT
 ACGT ACGA
 ```
 
-The supplied synthetic smoke sample produces one acceptance and two rejections at threshold zero, or two acceptances and one rejection at threshold one. Filter acceptance indicates a candidate for subsequent alignment, not an exact edit distance.
+The accepted alphabet is `A`, `C`, `G`, `T`, and `N`. The program compares `N` literally. It reads all pairs before parallel filtering, and reports the number of pairs, requested threads, accepted pairs, rejected pairs, and filtering time in milliseconds. Timing covers filtering and OpenMP loop overhead; input parsing occurs before the measured interval.
 
-All input is loaded and validated before filtering. Each OpenMP worker processes a separate pair; reductions combine counters. This removes the original final runner's concurrent reads from one file stream. Memory use grows with input size.
-
-Output reports total reads, requested threads, acceptances, rejections, and filtering wall time in milliseconds. Timing includes parallel loop overhead and excludes parsing. It is not directly comparable with original timings that included file reading inside the loop.
-
-## API and limitations
+## Filtering API
 
 ```cpp
 int SneakySnake(int ReadLength, char* Ref, char* Que,
@@ -63,16 +78,8 @@ int SneakySnake(int ReadLength, char* Ref, char* Que,
                 int DebugMode, int IterationNo);
 ```
 
-Returns `1` for acceptance and `0` for rejection. The runner passes zero for the last three compatibility parameters; the kernel does not use them to alter its calculation. The kernel assumes valid pointers and lengths; the runner validates its input.
+`ReadLength` is the length of each sequence. `Ref` and `Que` point to the reference and query, and `EditThreshold` supplies the threshold. The runner passes zero for `KmerSize`, `DebugMode`, and `IterationNo`, which are compatibility arguments in this implementation.
 
-The kernel has been preserved, not independently proven against the published algorithm. Compiler warnings about unused variables/parameters and its final return structure remain in the imported code. Runner checks cover basic filtering and parallel consistency, not comprehensive biological accuracy or thesis performance claims.
+The function returns `1` for acceptance and `0` for rejection. `main_hrt`, `upper_hrt`, and `lower_hrt` find matching runs on the main and shifted tracks; the filter chooses the longest run to advance its checkpoint.
 
-## Historical sources
-
-The archive groups historical runners under `archive/runners/` and exploratory programs under `archive/experiments/`. It retains the final, v2, and v3 runners, a distinct runner recovered from the ZIP, the initial single-pair implementation, chip-maze printing, an OpenMP demonstration, a threading experiment, and string-to-array conversion. See [the import manifest](../../docs/import-manifest.json) for exact original paths and duplicate mappings.
-
-These are reference sources, excluded from the maintained build. Some require MSVC-specific `strncpy_s`, fixed working directories, or hardcoded datasets. The chip-maze experiment has out-of-bounds indexing, the threading experiment leaves joinable threads, and the original final runner shares an input stream between workers. Use the maintained target for execution.
-
-Additional annotated CPU and Azure runners are archived as `runners/annotated_cpu.cpp` and `runners/azure.cpp`. Their limitations and the historical VM configuration are documented in [the additional import notes](../../docs/history/README.md).
-
-Distinct final-backup and cloud trial sources are described in the [recovered archive notes](archive/recovered/README.md). None are linked into the maintained executable. See the [validation record](../../docs/validation.md) for completed checks and their limits.
+See the [algorithm guide](../../docs/architecture.md) and [program-check instructions](../../docs/testing.md) for further details.

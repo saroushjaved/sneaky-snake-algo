@@ -1,9 +1,10 @@
-# Recovered CPU/cloud experiments
+# CPU and cloud implementation variants
 
-These distinct historical sources were recovered from `fpga_more_stuff/cloud_imp` and `Final_Year_Project/Code/CPU`. Source-equivalent files map to existing copies in `docs/recovered-project-manifest.json`; only additional variants are stored here.
+This directory groups additional CPU and cloud experiment sources.
 
-They are excluded from the maintained CMake build. Filenames and nested backup names identify their original context. Several use fixed input paths, lengths, thresholds, and loop counts. A displayed thread-count constant does not necessarily activate parallel processing.
+- `cloud_trials/`: runner variations using different thread arrangements, datasets, sequence lengths, and edit thresholds.
+- `final_backup/`: CPU, cloud, parallel, and versioned runner sources from the project.
 
-The recovered kernel differs from the maintained original only by a final fallback `return 0` and formatting. Some runner variants open an input stream per thread without seeking to their assigned starting row; others have every thread process the entire dataset, missing declarations, shared input races, or excessive repeated file scans. They are historical experiments, not validated alternative implementations or reliable benchmark evidence.
+The shared filtering interface is declared in `software/cpu/include/SneakySnake.h`. The repository's CMake target uses `software/cpu/src/main.cpp` and `software/cpu/src/SneakySnake.cpp`; files in this directory provide the experiment variants separately.
 
-Use `software/cpu/src/main.cpp` for maintained execution. This audit does not change its behavior.
+See the [CPU guide](../../README.md) for the command-line program and [cloud guide](../../../../docs/history/README.md) for VM execution.

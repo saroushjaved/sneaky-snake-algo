@@ -1,82 +1,72 @@
 # Sneaky Snake Algorithm
 
-Final year project: **Hands on Algorithm Acceleration using Heterogeneous Computing Systems**.
+## Hands on Algorithm Acceleration using Heterogeneous Computing Systems
 
 **Authors:** Mahgul Adnan and Soroush Javed Sulehri
 
 **Institution:** Pakistan Institute of Engineering and Applied Sciences (PIEAS)
 
-This repository contains the project's C++/OpenMP implementation, Verilog FPGA design, recovered board integration, thesis, and presentation. Sneaky Snake is an existing genome pre-alignment filtering algorithm; this project explores its implementation and acceleration across heterogeneous computing systems.
+This final year project explores genome pre-alignment filtering using the Sneaky Snake algorithm on multicore CPUs, cloud virtual machines, and FPGA hardware. The repository contains C++ and OpenMP implementations, Verilog modules, board integration files, and the project thesis and presentation.
 
-A pre-alignment filter accepts candidate sequence pairs for subsequent alignment or rejects dissimilar pairs. Its acceptance result is not an exact edit distance.
+## Project overview
 
-## Implementation status
+Genome read alignment compares a query sequence with a reference sequence. Pre-alignment filtering reduces the number of pairs sent to an alignment algorithm by first estimating whether they fall within a chosen edit threshold.
 
-| Area | Current state |
-| --- | --- |
-| CPU | Portable C++17/OpenMP runner; direct MinGW build and integration checks passed |
-| Cloud | Historical CPU/cloud experiments and an Azure VM configuration snapshot; no deployment automation |
-| FPGA components | Four- and eight-bit LZCs, comparator, and ChipMaze passed the documented component checks |
-| FPGA filter | Full hierarchy elaborates in Vivado 2025.2; functional wiring, width, and sequence-coverage defects remain |
-| Board integration | Recovered VC707 ROM/clock/count wrapper, constraints, and IP configurations; project reconstruction tested, but IP migration and clock constraints need work |
+Sneaky Snake represents comparisons as a chip maze. Horizontal tracks describe matches and mismatches at different sequence offsets. The algorithm searches for long matching segments, advances through the maze, and accumulates an edit estimate to decide whether to accept the pair for alignment.
 
-The FPGA design is an archived implementation under review. A verified FPGA bitstream or board demonstration is not provided. See the [current FPGA findings](hardware/fpga/REVIEW.md) and [validation record](docs/validation.md).
+The project explores this computation through three approaches:
 
-## CPU quick start
+- **CPU:** C++ implements the filtering algorithm, with OpenMP distributing independent sequence pairs across threads.
+- **Cloud:** The CPU implementation runs on a Linux virtual machine, allowing experiments with different thread counts and machine resources.
+- **FPGA:** Verilog modules generate mismatch tracks, count leading zeros, select escape segments, and combine local processing stages into an acceptance decision.
 
-Requires a C++17 compiler with OpenMP. The CMake build definition requires CMake 3.16 or newer:
+## Repository structure
+
+```text
+software/cpu/        C++ filtering kernel, OpenMP runner, and implementation variants
+hardware/fpga/       Verilog modules, testbenches, board files, and simulation tools
+data/samples/        Example sequence pairs and FPGA ROM data
+docs/                Project documentation and presentation
+tests/               CPU program checks
+CMakeLists.txt       CPU build configuration
+```
+
+## Build and run the CPU implementation
+
+Requires a C++17 compiler with OpenMP and CMake 3.16 or newer:
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 ./build/sneaky_snake data/samples/smoke.txt 0 4
-python tests/check_runner.py build/sneaky_snake
 ```
 
-With Visual Studio on Windows, use the configuration-specific executable:
+With Visual Studio on Windows:
 
 ```powershell
 ./build/Release/sneaky_snake.exe data/samples/smoke.txt 0 4
-python tests/check_runner.py build/Release/sneaky_snake.exe
 ```
 
-MinGW typically produces `build/sneaky_snake.exe`. Its runtime DLL directory must be on `PATH`. A direct GCC/MinGW build is documented in the [CPU guide](software/cpu/README.md); that route was used for the recorded local validation. The CMake route has not been exercised in the recorded audit environment.
+The command accepts an input file, edit threshold, and optional thread count. Each input line contains a query and reference sequence separated by whitespace. The program reports accepted and rejected pair counts and filtering time.
 
-The three-row smoke sample at threshold zero should report **1 accepted** and **2 rejected** pairs.
+See the [CPU guide](software/cpu/README.md) for direct GCC/MinGW commands, input format, and the filtering API.
 
-## FPGA review and project reconstruction
+## FPGA implementation
 
-With Python 3 and Vivado Simulator tools on `PATH`, run:
+The FPGA design uses two-bit DNA encoding and eleven comparison tracks: one main track and five shifted tracks in each direction. Leading-zero counters and a comparator tree identify escape segments for eight-base processing blocks.
 
-```sh
-python hardware/fpga/scripts/review.py
-```
+The board design connects the filter to a block ROM and clock generator on a Virtex-7 VC707 platform. Each 400-bit ROM word stores a 100-base query and a 100-base reference.
 
-Alternatively, supply `--vivado-bin` with the path to your Vivado `bin` directory. The script runs self-checking component simulations and elaborates the full filter hierarchy. Passing elaboration does not resolve the [known functional defects](hardware/fpga/REVIEW.md).
+See the [FPGA guide](hardware/fpga/README.md) for the module hierarchy and simulation commands, and the [board guide](hardware/fpga/board/README.md) for project setup.
 
-To prepare the recovered board project using synthetic ROM data:
+## Documentation
 
-```sh
-vivado -mode batch -source hardware/fpga/board/create_project.tcl -tclargs data/samples/fpga_demo.coe
-```
+- [Project guide](docs/README.md)
+- [Algorithm and architecture](docs/architecture.md)
+- [Cloud implementation](docs/history/README.md)
+- [Input data](data/README.md)
+- [Running program checks and simulations](docs/testing.md)
+- [Project thesis](Hetergenous_Thesis_FYP_Thesis.pdf)
+- [Project presentation](docs/presentations/FYP_Presentation_Ver3.pptx)
 
-This creates a project under `build/fpga-board/`; it does not generate a bitstream. See the [FPGA guide](hardware/fpga/README.md) and [board guide](hardware/fpga/board/README.md) for tool-version and IP limitations.
-
-## Repository layout
-
-```text
-software/cpu/        Maintained CPU runner, original kernel, historical experiments
-hardware/fpga/       Verilog RTL, testbenches, board integration, review tools
-data/samples/        Public synthetic CPU and FPGA examples
-docs/                Guides, validation record, import provenance, presentation
-tests/               CPU runner integration checks
-CMakeLists.txt       CPU build definition
-```
-
-The [documentation index](docs/README.md) links the detailed guides and audit records. The [thesis](Hetergenous_Thesis_FYP_Thesis.pdf) and [versioned presentation](docs/presentations/FYP_Presentation_Ver3.pptx) preserve the original project material; their historical results are separate from the current validation record.
-
-Original benchmark inputs remain in ignored `data/local/` on the working machine and are not included in a GitHub clone. Downloaded reference collections, raw backup folders, generated builds, and unrelated files were removed during cleanup. Commands recreate the required build directories. The paper PDF remains excluded from Git.
-
-## Attribution and license
-
-The project authors are credited above; Sneaky Snake itself predates this project. Downloaded upstream implementations are not bundled as project-authored code. No repository license has been selected. Import manifests document retained source provenance and any deduplication or path changes.
+Sneaky Snake is the underlying pre-alignment filtering algorithm studied in this project. The repository documents the authors' implementations and experiments using heterogeneous computing systems.

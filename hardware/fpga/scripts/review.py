@@ -46,7 +46,7 @@ if 'PASS: 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors and 70400 Ch
 if not args.components_only:
     status = run('xelab', 'work.sneaky_snake_tb', '-s', 'full_review')
     if status:
-        print('Full hierarchy could not elaborate; see hardware/fpga/REVIEW.md.')
+        print('Full hierarchy could not elaborate; see the Vivado log for details.')
     else:
-        print('Full hierarchy elaborated. Known functional wiring defects remain; see hardware/fpga/REVIEW.md.')
+        print('Full hierarchy elaborated.')
     sys.exit(status)

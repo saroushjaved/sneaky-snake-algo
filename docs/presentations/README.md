@@ -1,5 +1,5 @@
-# Project presentation archive
+# Project presentation
 
-`FYP_Presentation_Ver3.pptx` is the latest explicitly versioned presentation recovered from the original final-project backup. The original file is preserved unchanged. Earlier unversioned and draft copies were removed with the raw import during the requested cleanup.
+[FYP_Presentation_Ver3.pptx](FYP_Presentation_Ver3.pptx) presents **Hands on Algorithm Acceleration using Heterogeneous Computing Systems** by Mahgul Adnan and Soroush Javed Sulehri.
 
-The presentation records the original project narrative and results. Its claims are historical; the current source review and validation limits are documented separately in `../recovered-project-audit.md` and `../../hardware/fpga/REVIEW.md`.
+The presentation covers the project motivation, genome pre-alignment filtering, Sneaky Snake, CPU and FPGA implementations, results, and conclusions. The [thesis](../../Hetergenous_Thesis_FYP_Thesis.pdf) provides the accompanying written project report.

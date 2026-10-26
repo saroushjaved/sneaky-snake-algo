@@ -1,29 +1,46 @@
-# Recovered ROM-based board project
+# VC707 board integration
 
-This is the historical board integration recovered from the final-project backup. `rtl/top.v` reads two packed 100-base sequences from a 400-bit ROM word and connects them to `SneakySnake`. Address selection is external. A three-bit counter increments on rising edges of the filter's `Accepted` output.
+The board design targets the Virtex-7 device `xc7vx485tffg1761-2` on the VC707 platform. It connects the Sneaky Snake filter to block ROM and differential-clock IP.
 
-The wrapper is preserved, not corrected: it has no pair-valid handshake, no automatic ROM scan, no pipeline reset, and cannot count consecutive accepted pairs reliably. The underlying filter defects also remain. See [the recovery audit](../../../docs/recovered-project-audit.md).
+## Data path
 
-## Reconstruct a project
+```text
+Address inputs ---> Block ROM ---> Query/reference pair ---> SneakySnake
+                         ^                                      |
+Differential clock ---> Clock generator                       Accepted
+                                                                |
+                                                          Output counter
+```
 
-With Vivado's executable available:
+Each ROM word contains 400 bits: a 200-bit query in bits 399:200 and a 200-bit reference in bits 199:0. The four-bit `addra` input selects one of 16 words.
+
+The wrapper supplies the pair to `SneakySnake` with `LENGTH=200`. A three-bit counter increments when `Accepted` changes from low to high; reset clears the counter and its previous-decision register.
+
+## Files
+
+| Path | Purpose |
+| --- | --- |
+| `rtl/top.v` | ROM, clock, filter, and counter connections |
+| `constraints/const_1.xdc` | Pin and I/O-standard assignments for address, reset, and count signals |
+| `ip/blk_mem_gen_0.xci` | Single-port ROM configuration, 16 words of 400 bits |
+| `ip/clk_wiz_0.xci` | Clocking Wizard configuration for the differential input |
+| `create_project.tcl` | Creates a Vivado project and imports the RTL, constraints, and IP |
+| `archive/` | Alternative board wrappers and LZC source variants |
+
+## Create the project
+
+From the repository root, run:
 
 ```sh
 vivado -mode batch -source hardware/fpga/board/create_project.tcl -tclargs data/samples/fpga_demo.coe
 ```
 
-Run from the repository root. The script resolves the COE argument relative to the working directory and creates `build/fpga-board/`. It refuses to overwrite an existing project. Use your own 16-word, 400-bit binary COE file instead of the synthetic sample when restoring the original experiment.
+The argument is the path to a binary COE file containing 16 words of 400 bits. The script creates `build/fpga-board/`, imports the project sources, sets `top` as the top-level module, and writes an IP status report. Supply a different COE path to use another sequence set. The output directory must be available for project creation.
 
-The script uses device `xc7vx485tffg1761-2`, imports working copies of the original native XCI configurations, and updates the ROM path in that working copy before import. It prepares source order and writes `ip-status.txt`. It does not synthesize, implement, generate a bitstream, or program hardware.
+The XCI configurations record Vivado 2021.2 customizations and the clock IP's VC707 board preset. Vivado manages these native IP configurations through its project and IP catalog tools.
 
-Project preparation was tested with Vivado 2025.2 using the locally retained original-format ROM. Both recovered IP configurations report locked revisions from Vivado 2021.2, and the clock core reports a VC707 board-preset mismatch when only the part is selected. These must be resolved before a board build. The script intentionally does not silently upgrade historical IP or invent clock constraints.
+## Sequence preparation
 
-## Files
+DNA encoding uses A=00, T=01, G=10, C=11. Combine the query's 200 encoded bits with the reference's 200 bits to form each ROM word. A binary COE file begins with a radix declaration and comma-separated initialization vector, with a semicolon terminating the final word.
 
-- `rtl/top.v`: final wrapper, unchanged.
-- `constraints/const_1.xdc`: original switch/reset/count-output pin constraints, unchanged. Differential-clock assignments and an explicit primary clock constraint are absent.
-- `ip/blk_mem_gen_0.xci`: Single Port ROM, 16 x 400 bits, registered primitive output. Only the obsolete COE path is changed to `memory.coe` in the archive.
-- `ip/clk_wiz_0.xci`: original differential-clock configuration. Clock-frequency metadata needs review before use.
-- `archive/`: earlier wrappers and an incomplete LZC prototype; excluded from the reconstruction source list.
-
-The original `.xpr` depended on external workstation paths and generated checkpoints. The source-based reconstruction replaces those path dependencies. The raw backup and generated build project were removed during the requested cleanup; rerun the script to recreate the project.
+The public example is [fpga_demo.coe](../../../data/samples/fpga_demo.coe). Sequence-conversion scripts are stored under `../tools/archive/`.

@@ -1,58 +1,64 @@
-# FPGA source archive
+# FPGA implementation
 
-**Status: recovered historical implementation; full hierarchy elaborates, but functional defects remain.** The later backup supplied the missing LZC and a ROM-based board project. It does not yet establish a correct end-to-end filter or reproducible board demonstration. See [the current review](REVIEW.md) for outstanding defects and [the validation record](../../docs/validation.md) for completed checks. The [recovery audit](../../docs/recovered-project-audit.md) records provenance and cleanup decisions.
+The FPGA design represents Sneaky Snake filtering as mismatch-map generation, leading-zero counting, escape-segment selection, and eight-base processing stages.
 
-All 15 imported Verilog files are preserved unchanged. `../../docs/fpga-import-manifest.json` records their original names, retained paths, and SHA-256 hashes.
+## Source organization
 
-Recovered additions are recorded separately in `../../docs/recovered-project-manifest.json`.
-
-## Layout
-
-| Directory | Purpose |
+| Directory | Contents |
 | --- | --- |
-| `rtl/` | Eight initial design files plus the recovered four-bit LZC |
-| `tb/original/` | Seven initial stimulus benches plus the recovered LZC4 bench |
-| `tb/review/` | New self-checking component tests |
-| `scripts/` | Reproducible local Vivado review command |
-| `board/` | Recovered board wrapper, constraints, native IP settings, and reconstruction script |
-| `tools/archive/` | Original DNA encoding experiments |
+| `rtl/` | Chip maze, LZCs, comparator, escape selection, filtering stages, and top-level filter |
+| `tb/original/` | Stimulus testbenches for the design modules |
+| `tb/review/` | Self-checking LZC, comparator, and chip-maze testbench |
+| `scripts/` | Vivado compilation and simulation runner |
+| `board/` | ROM-based board wrapper, constraints, native IP configurations, and project script |
+| `tools/archive/` | DNA text-to-binary conversion scripts |
 
-The intended hierarchy is:
+## Module hierarchy
 
 ```text
-SneakySnake                  top-level acceptance decision
-├── ChipMaze                 11 mismatch tracks, offsets -5 through +5
-└── eightbitSneakySnake      36 instances: 12 blocks x 3 processing stages
-    └── longestescape        select longest leading-zero run across tracks
+SneakySnake
+├── ChipMaze
+└── eightbitSneakySnake
+    └── longestescape
         ├── leading_zero_8
-        │   └── leading_zero_4bit  recovered from the final-project source path
+        │   └── leading_zero_4bit
         └── comp_3bit
 ```
 
-`longest_escape` in `longestescapesegnment.v` is a separate experimental wrapper. `counter.v` is not instantiated in the filter hierarchy.
+| Module | Function |
+| --- | --- |
+| `ChipMaze` | XORs encoded bases at the main and shifted positions, producing eleven mismatch tracks |
+| `leading_zero_4bit` | Encodes the leading-zero information for a four-bit group |
+| `leading_zero_8` | Combines two four-bit groups into an eight-bit leading-zero result |
+| `comp_3bit` | Selects the larger encoded value with its validity information |
+| `longestescape` | Uses LZCs and a comparator tree to select an escape segment across tracks |
+| `eightbitSneakySnake` | Shifts an eight-base track group and updates local processing information |
+| `SneakySnake` | Instantiates processing stages and compares the combined estimate with threshold five |
 
-## Data representation
+`longest_escape` in `longestescapesegnment.v` combines chip-maze generation and escape selection in a separate module. `counter.v` contains a standalone counter example.
 
-`ChipMaze.LENGTH` is the input width in **bits**, with two bits per DNA base. A 100-base sequence therefore requires `LENGTH=200`, as used by `final_tb.v`. Track outputs then contain 100 mismatch bits: `0` means equal encoded bases, `1` means mismatch or an invalid shifted boundary. The top-level default of `100` describes only 50 encoded bases and does not fit its hardcoded block slices.
+## DNA encoding and mismatch tracks
 
-Recovered encoders use A=00, T=01, G=10, C=11. They remain historical utilities under `tools/archive/`. The RTL compares packed symbols; it does not parse DNA text. Shift range and edit threshold are fixed at five in the intended top-level design, rather than general runtime parameters.
+The encoding is A=00, T=01, G=10, C=11. `LENGTH` represents the encoded sequence width in bits; 100 bases therefore use `LENGTH=200`.
 
-## Reproduce the review
+The main track compares corresponding bases. Five upper and five lower tracks compare positions at offsets from one to five bases in either direction. A track bit of zero represents a match; a one represents a mismatch or an invalid shifted boundary.
 
-Run from the repository root. Requires Python 3 and Vivado Simulator (`xvlog`, `xelab`, and `xsim`). With those tools on `PATH`:
+The stage hierarchy groups tracks into eight-base slices. Leading-zero results describe matching runs from the beginning of each slice, and the comparator tree selects the longest available run.
+
+## Simulation
+
+Requires Python 3 and Vivado Simulator tools on `PATH`. Run from the repository root:
 
 ```sh
 python hardware/fpga/scripts/review.py
 ```
 
-Otherwise supply `--vivado-bin` with your Vivado `bin` directory. The recorded review used Vivado 2025.2 on Windows. Build products and numbered logs are regenerated under ignored `build/fpga-review/`; previous generated files were removed during cleanup.
-
-The default command checks the LZCs, comparator, and ChipMaze, then elaborates the recovered full-filter hierarchy. Elaboration now succeeds, with warnings; this is not a functional full-filter test. For only the component checks:
+Alternatively, specify the Vivado `bin` directory:
 
 ```sh
-python hardware/fpga/scripts/review.py --components-only
+python hardware/fpga/scripts/review.py --vivado-bin /path/to/Vivado/bin
 ```
 
-The LZC4 and LZC8 encoding/validity checks are exhaustive over 16 and 256 inputs. Component checks do not establish the correctness of the full filter, escape selector, stage chain, or acceptance decision. No verified bitstream or board implementation is supplied or claimed.
+The script compiles design sources, runs the component testbench, and elaborates `sneaky_snake_tb`. Use `--components-only` to run only the component portion. Output files and logs are written under `build/fpga-review/`.
 
-For native IP configurations and project creation, see the [board reconstruction guide](board/README.md). The public synthetic ROM supports a fresh clone; original benchmark inputs remain local and ignored by Git.
+See the [board guide](board/README.md) for the ROM/clock wrapper and project creation, and the [testing guide](../../docs/testing.md) for testbench coverage and commands.

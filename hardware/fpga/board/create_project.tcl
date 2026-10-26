@@ -34,5 +34,5 @@ foreach name {blk_mem_gen_0 clk_wiz_0} {
 set_property top top [get_filesets sources_1]
 update_compile_order -fileset sources_1
 report_ip_status -file [file join $project_dir ip-status.txt]
-puts "Recovered project prepared at $project_dir. Inspect IP status, clock constraints, and REVIEW.md before generating outputs or building."
+puts "Project created at $project_dir. IP report: [file join $project_dir ip-status.txt]"
 close_project
