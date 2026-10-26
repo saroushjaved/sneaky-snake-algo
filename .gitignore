@@ -1,2 +1,19 @@
 # Keep the paper PDF local; do not publish it.
 /Sneaky_Snake_Paper.pdf
+
+# Original benchmark inputs remain local; publish only documented small samples.
+/data/local/
+
+# Build output and editor state
+/build/
+**/.vs/
+**/Debug/
+**/Release/
+**/x64/
+*.vcxproj.user
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.ipch
+__pycache__/
