@@ -1,5 +1,7 @@
 # FPGA completeness review
 
+**Historical first-import review.** The later final-project backup recovered the missing LZC, a board wrapper, constraints, native IP settings, and encoder utilities. Full-filter elaboration now succeeds. The functional wiring/coverage findings below remain; missing-artifact and elaboration-failure statements describe the first 15-file import. See [the recovery audit](../../docs/recovered-project-audit.md) for current status and test results.
+
 Reviewed October 26, 2026. Scope: all 15 files imported from `fpga_stuff/`, their module hierarchy, widths, connections, stimulus benches, and the independent component simulations described below. Original Verilog bytes were preserved; no missing algorithm or board artifacts were invented.
 
 ## Conclusion

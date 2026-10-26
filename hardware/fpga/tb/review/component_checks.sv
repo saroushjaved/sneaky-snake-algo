@@ -22,8 +22,42 @@ module component_checks;
     integer seed = 20261026;
     reg expected;
     reg [3:0] expected_comp;
+    reg [0:3] lzc4_input;
+    wire p0, p1, v4;
+    leading_zero_4bit lzc4 (.A0(lzc4_input[0]), .A1(lzc4_input[1]),
+        .A2(lzc4_input[2]), .A3(lzc4_input[3]), .O_0(p0), .O_1(p1), .Valid(v4));
+    reg [0:7] lzc8_input;
+    wire z0, z1, z2, v8;
+    leading_zero_8 lzc8 (.A0(lzc8_input[0]), .A1(lzc8_input[1]),
+        .A2(lzc8_input[2]), .A3(lzc8_input[3]), .A4(lzc8_input[4]),
+        .A5(lzc8_input[5]), .A6(lzc8_input[6]), .A7(lzc8_input[7]),
+        .Z0(z0), .Z1(z1), .Z2(z2), .Valid(v8));
+    integer leading, found;
 
     initial begin
+        for (j = 0; j < 16; j = j + 1) begin
+            lzc4_input = j;
+            #1; leading = 0; found = 0;
+            for (i = 0; i < 4; i = i + 1) begin
+                if (!found && lzc4_input[i]) found = 1;
+                if (!found) leading = leading + 1;
+            end
+            if (v4 !== (leading < 4)) $fatal(1, "LZC4 validity mismatch");
+            // The 4-bit cell uses complemented count bits; the 8-bit cell inverts them.
+            if (leading < 4 && {p1,p0} !== (2'b11 ^ leading[1:0]))
+                $fatal(1, "LZC4 encoding mismatch for vector %0d", j);
+        end
+        for (j = 0; j < 256; j = j + 1) begin
+            lzc8_input = j;
+            #1; leading = 0; found = 0;
+            for (i = 0; i < 8; i = i + 1) begin
+                if (!found && lzc8_input[i]) found = 1;
+                if (!found) leading = leading + 1;
+            end
+            if (v8 !== (leading < 8)) $fatal(1, "LZC8 validity mismatch");
+            if (leading < 8 && {z2,z1,z0} !== leading[2:0])
+                $fatal(1, "LZC8 encoding mismatch for vector %0d", j);
+        end
         // Exhaustive comparator truth table, including both validity inputs.
         // A zero validity propagates the all-zero/8-leading-zero sentinel.
         for (j = 0; j < 256; j = j + 1) begin
@@ -59,7 +93,7 @@ module component_checks;
             end
             clk = 0; #4;
         end
-        $display("PASS: 256 comparator vectors and 70400 ChipMaze bit checks");
+        $display("PASS: 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors and 70400 ChipMaze bit checks");
         $finish;
     end
 endmodule

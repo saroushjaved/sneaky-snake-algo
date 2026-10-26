@@ -3,6 +3,7 @@
 
 # Original benchmark inputs remain local; publish only documented small samples.
 /data/local/
+/fpga_more_stuff/
 
 # Build output and editor state
 /build/

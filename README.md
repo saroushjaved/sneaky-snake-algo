@@ -13,9 +13,11 @@ This repository archives the project's Sneaky Snake genome pre-alignment filteri
 - `data/samples/`: small synthetic input; `data/local/`: original inputs, ignored by Git.
 - `docs/import-manifest.json`: original paths, retained paths, and SHA-256 hashes.
 - `docs/cpp-import.md`: cleanup decisions and known limitations.
+- `docs/recovered-project-audit.md`: final-project recovery, publication decisions, and current FPGA status.
+- `docs/presentations/`: recovered versioned final-project presentation.
 - `Hetergenous_Thesis_FYP_Thesis.pdf`: project thesis.
 
-Historical cloud runner and Azure VM configuration are described in [the additional import notes](docs/history/README.md). The [FPGA archive](hardware/fpga/README.md) is incomplete: its full hierarchy cannot elaborate because a leading-zero submodule is missing, and the [review](hardware/fpga/REVIEW.md) records additional wiring and board-integration gaps. Cloud provisioning scripts have not yet been imported. The paper PDF is excluded from Git.
+Historical cloud runner and Azure VM configuration are described in [the additional import notes](docs/history/README.md). The [FPGA archive](hardware/fpga/README.md) now includes the recovered LZC and ROM-based board project. Its full filter hierarchy elaborates, but known functional wiring defects and board/IP migration gaps remain; see the [recovery audit](docs/recovered-project-audit.md). Cloud provisioning scripts have not yet been imported. The paper PDF is excluded from Git.
 
 ## Build
 

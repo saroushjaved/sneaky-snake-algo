@@ -1,7 +1,7 @@
-"""Run Vivado component checks and reproduce the original hierarchy blocker.
+"""Run Vivado component checks and elaborate the recovered filter hierarchy.
 
-Default exit status is nonzero while the full imported design cannot elaborate.
-Use --components-only for the independently tested comparator and ChipMaze.
+Elaboration success does not establish full-filter functional correctness.
+Use --components-only to skip full-hierarchy elaboration.
 """
 import argparse
 import os
@@ -40,11 +40,13 @@ if run('xelab', 'work.component_checks', '--timescale', '1ns/1ps', '-s', 'compon
 if run('xsim', 'component_review', '-runall'):
     sys.exit(1)
 simulation_log = work / f'{step:02d}-xsim-review.log'
-if 'PASS: 256 comparator vectors and 70400 ChipMaze bit checks' not in simulation_log.read_text(encoding='utf-8'):
+if 'PASS: 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors and 70400 ChipMaze bit checks' not in simulation_log.read_text(encoding='utf-8'):
     print('Component simulation did not reach the expected pass marker.')
     sys.exit(1)
 if not args.components_only:
     status = run('xelab', 'work.sneaky_snake_tb', '-s', 'full_review')
     if status:
-        print('Full imported hierarchy is incomplete; see hardware/fpga/REVIEW.md.')
+        print('Full hierarchy could not elaborate; see hardware/fpga/REVIEW.md.')
+    else:
+        print('Full hierarchy elaborated. Known functional wiring defects remain; see hardware/fpga/REVIEW.md.')
     sys.exit(status)
