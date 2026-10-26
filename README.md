@@ -9,12 +9,13 @@ This repository archives the project's Sneaky Snake genome pre-alignment filteri
 - `software/cpu/src/`: original filter kernel and portable OpenMP runner.
 - `software/cpu/include/`: filtering API.
 - `software/cpu/archive/`: distinct historical runners and experiments.
+- `hardware/fpga/`: original FPGA RTL, testbenches, component checks, and completeness review.
 - `data/samples/`: small synthetic input; `data/local/`: original inputs, ignored by Git.
 - `docs/import-manifest.json`: original paths, retained paths, and SHA-256 hashes.
 - `docs/cpp-import.md`: cleanup decisions and known limitations.
 - `Hetergenous_Thesis_FYP_Thesis.pdf`: project thesis.
 
-Historical cloud runner and Azure VM configuration are described in [the additional import notes](docs/history/README.md). FPGA sources and cloud provisioning scripts have not yet been imported. The paper PDF is excluded from Git.
+Historical cloud runner and Azure VM configuration are described in [the additional import notes](docs/history/README.md). The [FPGA archive](hardware/fpga/README.md) is incomplete: its full hierarchy cannot elaborate because a leading-zero submodule is missing, and the [review](hardware/fpga/REVIEW.md) records additional wiring and board-integration gaps. Cloud provisioning scripts have not yet been imported. The paper PDF is excluded from Git.
 
 ## Build
 
