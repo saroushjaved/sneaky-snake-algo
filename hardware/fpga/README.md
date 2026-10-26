@@ -1,6 +1,6 @@
 # FPGA source archive
 
-**Status: recovered historical implementation; full hierarchy elaborates, but functional defects remain.** The later backup supplied the missing LZC and a ROM-based board project. It does not yet establish a correct end-to-end filter or reproducible board demonstration. See [the recovery audit](../../docs/recovered-project-audit.md) for current results and [the initial review](REVIEW.md) for the original findings.
+**Status: recovered historical implementation; full hierarchy elaborates, but functional defects remain.** The later backup supplied the missing LZC and a ROM-based board project. It does not yet establish a correct end-to-end filter or reproducible board demonstration. See [the current review](REVIEW.md) for outstanding defects and [the validation record](../../docs/validation.md) for completed checks. The [recovery audit](../../docs/recovered-project-audit.md) records provenance and cleanup decisions.
 
 All 15 imported Verilog files are preserved unchanged. `../../docs/fpga-import-manifest.json` records their original names, retained paths, and SHA-256 hashes.
 
@@ -39,13 +39,13 @@ Recovered encoders use A=00, T=01, G=10, C=11. They remain historical utilities 
 
 ## Reproduce the review
 
-Requires Python 3 and Vivado Simulator (`xvlog`, `xelab`, and `xsim`). This was run with Vivado 2025.2 on Windows:
+Run from the repository root. Requires Python 3 and Vivado Simulator (`xvlog`, `xelab`, and `xsim`). With those tools on `PATH`:
 
 ```sh
-python hardware/fpga/scripts/review.py --vivado-bin D:/Xilinx_2025.2/2025.2/Vivado/bin
+python hardware/fpga/scripts/review.py
 ```
 
-If Vivado's tools are on `PATH`, omit `--vivado-bin`. Build products and logs go under ignored `build/fpga-review/`.
+Otherwise supply `--vivado-bin` with your Vivado `bin` directory. The recorded review used Vivado 2025.2 on Windows. Build products and numbered logs are regenerated under ignored `build/fpga-review/`; previous generated files were removed during cleanup.
 
 The default command checks the LZCs, comparator, and ChipMaze, then elaborates the recovered full-filter hierarchy. Elaboration now succeeds, with warnings; this is not a functional full-filter test. For only the component checks:
 
@@ -54,3 +54,5 @@ python hardware/fpga/scripts/review.py --components-only
 ```
 
 The LZC4 and LZC8 encoding/validity checks are exhaustive over 16 and 256 inputs. Component checks do not establish the correctness of the full filter, escape selector, stage chain, or acceptance decision. No verified bitstream or board implementation is supplied or claimed.
+
+For native IP configurations and project creation, see the [board reconstruction guide](board/README.md). The public synthetic ROM supports a fresh clone; original benchmark inputs remain local and ignored by Git.

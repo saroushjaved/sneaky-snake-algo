@@ -53,6 +53,6 @@ The original encoders silently ignore non-ATGC characters, assume fixed filename
 
 ## Verification and limits
 
-All selected files were checked against their retained hashes. The 15 initial FPGA files remain unchanged. Vivado 2025.2 parses the recovered design sources, passes 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors, and 70,400 ChipMaze bit checks, and elaborates the full filter hierarchy. Native board-project reconstruction completes and records the locked-IP warnings in `build/fpga-board/ip-status.txt`.
+All selected files were checked against their retained hashes. The 15 initial FPGA files remain unchanged. Vivado 2025.2 parsed the recovered design sources, passed 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors, and 70,400 ChipMaze bit checks, and elaborated the full filter hierarchy. Native board-project reconstruction completed with locked-IP warnings. Its generated `build/fpga-board/ip-status.txt` was removed during cleanup and is recreated by the board script. See [the validation record](validation.md) for reproduction commands and limits.
 
 No synthesis, implementation, bitstream generation, FPGA programming, full-filter accuracy claim, or renewed CPU performance claim is made by this audit. Historical CPU/cloud files are not added to the maintained CMake target. Relevant archive additions are published. The original 5.8 GB input and generated build products were removed during the requested cleanup; recorded build logs can be regenerated using the documented scripts.

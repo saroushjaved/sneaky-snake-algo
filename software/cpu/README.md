@@ -4,6 +4,35 @@
 
 `src/main.cpp` is a new portable C++17/OpenMP runner. The original final runner and earlier experiments remain in `archive/`.
 
+## Build and verify
+
+Run commands from the repository root. Requires a C++17 compiler with OpenMP; Python 3 is needed only for the integration checks. CMake 3.16 or newer can configure the provided build definition:
+
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+```
+
+The direct GCC/MinGW route was used for the recorded local validation. On a POSIX shell:
+
+```sh
+mkdir -p build
+g++ -std=c++17 -O2 -fopenmp -Isoftware/cpu/include software/cpu/src/main.cpp software/cpu/src/SneakySnake.cpp -o build/sneaky_snake
+./build/sneaky_snake data/samples/smoke.txt 0 4
+python tests/check_runner.py build/sneaky_snake
+```
+
+With MinGW in PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force build | Out-Null
+g++ -std=c++17 -O2 -fopenmp -Isoftware/cpu/include software/cpu/src/main.cpp software/cpu/src/SneakySnake.cpp -o build/sneaky_snake.exe
+./build/sneaky_snake.exe data/samples/smoke.txt 0 4
+python tests/check_runner.py build/sneaky_snake.exe
+```
+
+Keep the compiler's runtime DLL directory on `PATH`. Visual Studio multi-configuration builds normally place the executable at `build/Release/sneaky_snake.exe`; use that path for both execution and checks. CMake's configure/build route has not been exercised in the recorded audit environment. Generated `build/` files were removed during cleanup and are recreated by these commands.
+
 ## Usage
 
 ```text
@@ -45,3 +74,5 @@ The archive groups historical runners under `archive/runners/` and exploratory p
 These are reference sources, excluded from the maintained build. Some require MSVC-specific `strncpy_s`, fixed working directories, or hardcoded datasets. The chip-maze experiment has out-of-bounds indexing, the threading experiment leaves joinable threads, and the original final runner shares an input stream between workers. Use the maintained target for execution.
 
 Additional annotated CPU and Azure runners are archived as `runners/annotated_cpu.cpp` and `runners/azure.cpp`. Their limitations and the historical VM configuration are documented in [the additional import notes](../../docs/history/README.md).
+
+Distinct final-backup and cloud trial sources are described in the [recovered archive notes](archive/recovered/README.md). None are linked into the maintained executable. See the [validation record](../../docs/validation.md) for completed checks and their limits.

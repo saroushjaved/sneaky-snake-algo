@@ -14,7 +14,7 @@ The manifest describes imported files; it does not include newly authored runner
 
 ## Dataset publication
 
-Original inputs remain local and ignored by Git. Their authoritative download locations and redistribution permissions were not supplied. A fresh GitHub clone includes only the newly authored synthetic sample. The manifest records original filenames and hashes for identifying local benchmark inputs.
+Original inputs remain local and ignored by Git. Their authoritative download locations and redistribution permissions were not supplied. A fresh GitHub clone includes the synthetic CPU sample and FPGA ROM example described in [the data guide](../data/README.md). The manifest records original filenames and hashes for identifying local benchmark inputs.
 
 ## Runner changes
 
@@ -22,4 +22,4 @@ The new runner replaces fixed paths, sequence lengths, loop counts, edit thresho
 
 ## Verification scope
 
-The direct GCC/MinGW build and runner checks are exercised locally. CMake is not available on the current PATH, so its configure/build flow has not been exercised. The preserved kernel still requires independent correctness validation against exact edit distance before making broad accuracy claims.
+The direct GCC/MinGW build and runner checks passed during the audit. The CMake configure/build flow was not exercised in that environment. Generated files were subsequently removed during cleanup. See [the validation record](validation.md) for results and reproduction commands. The preserved kernel still requires independent correctness validation against exact edit distance before making broad accuracy claims.
