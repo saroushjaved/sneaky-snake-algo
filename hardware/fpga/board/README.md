@@ -26,4 +26,4 @@ Project preparation was tested with Vivado 2025.2 using the locally retained ori
 - `ip/clk_wiz_0.xci`: original differential-clock configuration. Clock-frequency metadata needs review before use.
 - `archive/`: earlier wrappers and an incomplete LZC prototype; excluded from the reconstruction source list.
 
-The original `.xpr` depends on external workstation paths and generated checkpoints. The local source-based reconstruction replaces those path dependencies; the original project remains in the ignored raw backup.
+The original `.xpr` depended on external workstation paths and generated checkpoints. The source-based reconstruction replaces those path dependencies. The raw backup and generated build project were removed during the requested cleanup; rerun the script to recreate the project.

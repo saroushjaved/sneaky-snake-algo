@@ -1,6 +1,6 @@
 # Recovered final-project audit
 
-Audited October 26, 2026. Input: `fpga_more_stuff/`, 14,988 files totaling 5,798,732,043 bytes. The original folder is retained locally and ignored by Git. No downloaded collections or original backups were deleted.
+Audited October 26, 2026. Input: `fpga_more_stuff/`, 14,988 files totaling 5,798,732,043 bytes. After the curated files were verified and published, the user requested removal of extra material. The raw import, generated `build/` directory, and empty `scripts/` directory were then deleted. Retained project files and local datasets remain available.
 
 ## Final-project identification
 
@@ -37,22 +37,22 @@ The original filter still has the edit-count width, stage wiring, maximum-select
 
 ## Data and ROM handling
 
-`binfilegen/memory.coe` contains 16 words of 400 bits and has been copied to ignored `data/local/fpga/memory.coe`. Its dimensions fit the recovered ROM. It is not proven to be the exact missing `data.coe` referenced by the original project. Other original datasets, raw encoded outputs, and initialization artifacts remain local.
+`binfilegen/memory.coe` contains 16 words of 400 bits and has been copied to ignored `data/local/fpga/memory.coe`. Its dimensions fit the recovered ROM. It is not proven to be the exact missing `data.coe` referenced by the original project. Curated datasets under `data/local/` remain; other raw encoded outputs and initialization artifacts were removed with the import.
 
 `data/samples/fpga_demo.coe` is newly authored synthetic data with the same dimensions. It supports project reconstruction in a public clone without redistributing the original benchmark inputs. It is not a benchmark or an expected-results file.
 
 The original encoders silently ignore non-ATGC characters, assume fixed filenames, and do not validate sequence length. One repeatedly rewrites the output as it reads input; the other emits comma-separated rows without a complete COE header/terminator. They document the historical encoding path and are not maintained converters.
 
-## Material deliberately left local
+## Material excluded from publication and subsequently removed
 
 - Downloaded Ethernet, UART, FIFO, RIFFA/PCIe, and upstream SneakySnake sources. They are reference collections rather than evidence of an integrated final filter. The downloaded upstream design has different module names and interfaces; it was not substituted for the student's implementation.
 - Vivado generated IP output, cache/run/simulation trees, compiled simulator libraries, nested Git metadata, binaries, and checkpoints.
-- Older presentation drafts, thesis drafts/screenshots, downloaded books, Unreal/Inventor material, and unrelated experiments. The thesis PDF is already published separately.
-- An unrelated `projectgpt` experiment containing hardcoded API credentials. None of its files or credentials were copied into the published archive; the credential should be revoked through the issuing account if still active.
+- Older presentation drafts, thesis drafts/screenshots, downloaded books, Unreal/Inventor material, and unrelated experiments. The retained thesis PDF is published separately.
+- An unrelated `projectgpt` experiment containing hardcoded API credentials. None of its files or credentials were published. Removing the local file does not revoke the credential; it should be revoked through the issuing account if still active.
 - An early LZC prototype has assignments to undeclared `out` and lowercase `valid` instead of its declared outputs. It is kept only in `board/archive/lzc4_early_broken.v`; the restored RTL uses the properly connected version.
 
 ## Verification and limits
 
 All selected files were checked against their retained hashes. The 15 initial FPGA files remain unchanged. Vivado 2025.2 parses the recovered design sources, passes 16 LZC4 vectors, 256 LZC8 vectors, 256 comparator vectors, and 70,400 ChipMaze bit checks, and elaborates the full filter hierarchy. Native board-project reconstruction completes and records the locked-IP warnings in `build/fpga-board/ip-status.txt`.
 
-No synthesis, implementation, bitstream generation, FPGA programming, full-filter accuracy claim, or renewed CPU performance claim is made by this audit. Historical CPU/cloud files are not added to the maintained CMake target. Relevant archive additions are published; the original 5.8 GB input remains available locally for later recovery work.
+No synthesis, implementation, bitstream generation, FPGA programming, full-filter accuracy claim, or renewed CPU performance claim is made by this audit. Historical CPU/cloud files are not added to the maintained CMake target. Relevant archive additions are published. The original 5.8 GB input and generated build products were removed during the requested cleanup; recorded build logs can be regenerated using the documented scripts.

@@ -2,261 +2,313 @@
   "(root files)": {
     "files": 21,
     "bytes": 5421998,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "10_100m_ethernet-fifo_convertor": {
     "files": 14,
     "bytes": 665772,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "AHAH": {
     "files": 517,
     "bytes": 69707004,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "ETHERNET_2": {
     "files": 42,
     "bytes": 253230,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "ETHERNET_FINAL_TRY": {
     "files": 192,
     "bytes": 24161632,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Ethernet IP": {
     "files": 113,
     "bytes": 2923807,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "FPGA Implementation": {
     "files": 345,
     "bytes": 55869232,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "FYP": {
     "files": 3071,
     "bytes": 982897379,
-    "decision": "Mixed earlier work and downloaded upstream SneakySnake; retained locally"
+    "decision": "Mixed earlier work and downloaded upstream SneakySnake; retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "FYP CODE": {
     "files": 15,
     "bytes": 54578,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Final_Year_Project": {
     "files": 1938,
     "bytes": 2268478358,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Final_Year_Project_version_1": {
     "files": 5,
     "bytes": 13289,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Inventor 2023": {
     "files": 1,
     "bytes": 311296,
-    "decision": "Unrelated material; not published"
+    "decision": "Unrelated material; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Mid": {
     "files": 15,
     "bytes": 3762383,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Synthesis_1": {
     "files": 24,
     "bytes": 1905665,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "UART": {
     "files": 123,
     "bytes": 1946498,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "UART-FIFO-master": {
     "files": 6,
     "bytes": 13535,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "UART_1": {
     "files": 8,
     "bytes": 25444,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "UART_2": {
     "files": 1236,
     "bytes": 474034816,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "UE_5.2": {
     "files": 2459,
     "bytes": 1302589374,
-    "decision": "Unrelated material; not published"
+    "decision": "Unrelated material; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "Verilog-UART-Custom-IP-main": {
     "files": 36,
     "bytes": 228389,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "binfilegen": {
     "files": 8,
     "bytes": 25240,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "cloud_imp": {
     "files": 69,
     "bytes": 171221568,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "ethmac": {
     "files": 2041,
     "bytes": 71656913,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "fifointergration": {
     "files": 566,
     "bytes": 124254653,
-    "decision": "Relevant files selected or deduplicated; remainder retained locally"
+    "decision": "Relevant files selected or deduplicated; remainder retained locally",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "fpga-cf": {
     "files": 186,
     "bytes": 26402876,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "gfhj": {
     "files": 12,
     "bytes": 44716,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "newur": {
     "files": 69,
     "bytes": 194187,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "osdvu": {
     "files": 3,
     "bytes": 13781,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_1": {
     "files": 100,
     "bytes": 2644485,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_10": {
     "files": 3,
     "bytes": 10872,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_11": {
     "files": 17,
     "bytes": 518404,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_12": {
     "files": 12,
     "bytes": 24830,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_13": {
     "files": 12,
     "bytes": 30663,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_14": {
     "files": 205,
     "bytes": 24417707,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_15": {
     "files": 7,
     "bytes": 19312,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_2": {
     "files": 3,
     "bytes": 21989,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_3": {
     "files": 74,
     "bytes": 2082667,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_4": {
     "files": 43,
     "bytes": 106432785,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_5": {
     "files": 235,
     "bytes": 8853620,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_6": {
     "files": 91,
     "bytes": 1398440,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_7": {
     "files": 58,
     "bytes": 669031,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_8": {
     "files": 44,
     "bytes": 182996,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "project_9": {
     "files": 156,
     "bytes": 10059962,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "projectgpt": {
     "files": 4,
     "bytes": 8898,
-    "decision": "Unrelated material; not published"
+    "decision": "Unrelated material; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "simple-uart-for-fpga(2)": {
     "files": 9,
     "bytes": 36312,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "transmitter": {
     "files": 240,
     "bytes": 25274459,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "uart_core-main": {
     "files": 18,
     "bytes": 71341,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "uart_fifo_cpu_if_sv_testbench": {
     "files": 2,
     "bytes": 32531,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "uart_led_attempt1": {
     "files": 312,
     "bytes": 25318064,
-    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified"
+    "decision": "Peripheral/demo project; no additional final-filter hierarchy identified",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "verilog-uart-master": {
     "files": 69,
     "bytes": 194219,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "wbuart32-master": {
     "files": 51,
     "bytes": 678785,
-    "decision": "Downloaded or reference communication core; not published"
+    "decision": "Downloaded or reference communication core; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   },
   "work": {
     "files": 88,
     "bytes": 672058,
-    "decision": "Generated simulator library; not published"
+    "decision": "Generated simulator library; not published",
+    "cleanup": "Original raw group removed after curated recovery files were verified and published; see recovered-project-manifest.json for retained files."
   }
 }
