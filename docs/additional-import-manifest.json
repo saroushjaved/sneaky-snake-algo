@@ -1,0 +1,58 @@
+[
+  {
+    "original": "CPU Implementation/documentation.md",
+    "sha256": "35275ca23d0e6cb3efc6f246ad4131d5d83e2d871db922317da9dab43bc8862c",
+    "action": "Preserved with historical-context note and closed Markdown fence",
+    "retained": "docs/history/cpu-documentation.md",
+    "retained_sha256": "cce099e0a7688880406639c7fde05593b326ca3883e9bc756ef53af94c103ffc"
+  },
+  {
+    "original": "CPU Implementation/sneakysnake.cpp",
+    "sha256": "9c97c229acc8ff5660c57f8ed9e23a7bd08f63e1055b46990fa300a3cb99aae2",
+    "action": "Duplicate algorithm tokens; comments/formatting only",
+    "retained": "software/cpu/src/SneakySnake.cpp",
+    "retained_sha256": "11bfd59deb775f6ced60abff48047350ec3a6acb99e1418e745f4d19ee81b75f"
+  },
+  {
+    "original": "CPU Implementation/SneakySnake.h",
+    "sha256": "9356e8c1048331978d03ecc0722e30d0b2f1c40ad78b8e33f6e624ee7834630c",
+    "action": "Duplicate declarations; comments/formatting only",
+    "retained": "software/cpu/include/SneakySnake.h",
+    "retained_sha256": "d4311eaff374e6b0026b961f08e18b3033bf9b262d67d7d2f2280d4f11dc2ff8"
+  },
+  {
+    "original": "CPU Implementation/source.cpp",
+    "sha256": "44199d92e3aa323b7fcff51035865186e9503596223dd8f3087859388009ef00",
+    "action": "Preserved historical runner unchanged",
+    "retained": "software/cpu/archive/runners/annotated_cpu.cpp",
+    "retained_sha256": "44199d92e3aa323b7fcff51035865186e9503596223dd8f3087859388009ef00"
+  },
+  {
+    "original": "Cloud Implementation/cloud-setup.txt",
+    "sha256": "b642f487f1f9048ec00101a73bd190dd1482ed2545afaadc884bfedadd1c5a85",
+    "action": "Preserved configuration with VM ID removed and disk resource ID redacted",
+    "retained": "docs/history/azure-vm.json",
+    "retained_sha256": "08be0f918f2fe5cd5cb3591c1374be5a269ddbd65b6ad17a2273453c82284581"
+  },
+  {
+    "original": "Cloud Implementation/sneakysnake.cpp",
+    "sha256": "9c97c229acc8ff5660c57f8ed9e23a7bd08f63e1055b46990fa300a3cb99aae2",
+    "action": "Duplicate algorithm tokens; comments/formatting only",
+    "retained": "software/cpu/src/SneakySnake.cpp",
+    "retained_sha256": "11bfd59deb775f6ced60abff48047350ec3a6acb99e1418e745f4d19ee81b75f"
+  },
+  {
+    "original": "Cloud Implementation/SneakySnake.h",
+    "sha256": "9356e8c1048331978d03ecc0722e30d0b2f1c40ad78b8e33f6e624ee7834630c",
+    "action": "Duplicate declarations; comments/formatting only",
+    "retained": "software/cpu/include/SneakySnake.h",
+    "retained_sha256": "d4311eaff374e6b0026b961f08e18b3033bf9b262d67d7d2f2280d4f11dc2ff8"
+  },
+  {
+    "original": "Cloud Implementation/source.cpp",
+    "sha256": "39c60738124377f1c9fdc93d21bd19a96a8d15f9304dadc4a27e6d4bf5c8af29",
+    "action": "Preserved historical runner unchanged",
+    "retained": "software/cpu/archive/runners/azure.cpp",
+    "retained_sha256": "39c60738124377f1c9fdc93d21bd19a96a8d15f9304dadc4a27e6d4bf5c8af29"
+  }
+]

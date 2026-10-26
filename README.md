@@ -14,7 +14,7 @@ This repository archives the project's Sneaky Snake genome pre-alignment filteri
 - `docs/cpp-import.md`: cleanup decisions and known limitations.
 - `Hetergenous_Thesis_FYP_Thesis.pdf`: project thesis.
 
-FPGA and cloud sources have not yet been imported. The paper PDF is excluded from Git.
+Historical cloud runner and Azure VM configuration are described in [the additional import notes](docs/history/README.md). FPGA sources and cloud provisioning scripts have not yet been imported. The paper PDF is excluded from Git.
 
 ## Build
 

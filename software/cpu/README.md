@@ -43,3 +43,5 @@ The kernel has been preserved, not independently proven against the published al
 The archive groups historical runners under `archive/runners/` and exploratory programs under `archive/experiments/`. It retains the final, v2, and v3 runners, a distinct runner recovered from the ZIP, the initial single-pair implementation, chip-maze printing, an OpenMP demonstration, a threading experiment, and string-to-array conversion. See [the import manifest](../../docs/import-manifest.json) for exact original paths and duplicate mappings.
 
 These are reference sources, excluded from the maintained build. Some require MSVC-specific `strncpy_s`, fixed working directories, or hardcoded datasets. The chip-maze experiment has out-of-bounds indexing, the threading experiment leaves joinable threads, and the original final runner shares an input stream between workers. Use the maintained target for execution.
+
+Additional annotated CPU and Azure runners are archived as `runners/annotated_cpu.cpp` and `runners/azure.cpp`. Their limitations and the historical VM configuration are documented in [the additional import notes](../../docs/history/README.md).
