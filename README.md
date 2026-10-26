@@ -70,3 +70,9 @@ See the [FPGA guide](hardware/fpga/README.md) for the module hierarchy and simul
 - [Project presentation](docs/presentations/FYP_Presentation_Ver3.pptx)
 
 Sneaky Snake is the underlying pre-alignment filtering algorithm studied in this project. The repository documents the authors' implementations and experiments using heterogeneous computing systems.
+
+## Publication
+
+Mahgul Adnan, Soroush Javed Sulehri, Muhammad Ali Akhtar, and Muhammad Aqil, **“Accelerating Genome Sequence Analysis via Pre-Alignment Filtering: A Review of Sneaky Snake Algorithm,”** *2024 21st International Bhurban Conference on Applied Sciences and Technology (IBCAST)*, 2024.
+
+**DOI:** [10.1109/IBCAST61650.2024.10877257](https://doi.org/10.1109/IBCAST61650.2024.10877257)

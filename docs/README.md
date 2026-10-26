@@ -17,3 +17,9 @@
 ## Thesis and presentation
 
 The [thesis](../Hetergenous_Thesis_FYP_Thesis.pdf) presents the project's background, methodology, implementations, and results. The [presentation](presentations/FYP_Presentation_Ver3.pptx) provides the project overview and implementation discussion.
+
+## Publication
+
+Mahgul Adnan, Soroush Javed Sulehri, Muhammad Ali Akhtar, and Muhammad Aqil, **“Accelerating Genome Sequence Analysis via Pre-Alignment Filtering: A Review of Sneaky Snake Algorithm,”** *2024 21st International Bhurban Conference on Applied Sciences and Technology (IBCAST)*, 2024.
+
+**DOI:** [10.1109/IBCAST61650.2024.10877257](https://doi.org/10.1109/IBCAST61650.2024.10877257)
